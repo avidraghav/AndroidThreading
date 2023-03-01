@@ -9,7 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
     private lateinit var textView: TextView
-    lateinit var simpleWorker: SimpleWorker
+
+    // SimpleWorker can be replaced by Worker
+    lateinit var worker: SimpleWorker
 
     private val handler: Handler = object : Handler(Looper.getMainLooper()) {
         override fun handleMessage(message: Message) {
@@ -23,8 +25,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         textView = findViewById(R.id.textView)
 
-        simpleWorker = SimpleWorker()
-        simpleWorker.execute {
+        worker = SimpleWorker()
+        worker.execute {
             Thread.sleep(1000)
             val message = Message.obtain()
             message.obj = "Task-1 completed"
@@ -44,7 +46,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        simpleWorker.terminate()
+        worker.quit()
     }
 
     companion object {

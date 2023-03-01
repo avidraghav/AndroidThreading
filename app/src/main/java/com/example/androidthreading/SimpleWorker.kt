@@ -34,7 +34,7 @@ class SimpleWorker : Thread() {
         return this
     }
 
-    fun terminate() {
+    fun quit() {
         isThreadAlive = false
     }
 }
